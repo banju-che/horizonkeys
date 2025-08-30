@@ -5,6 +5,7 @@ Django settings for config project.
 from pathlib import Path
 import os
 import environ
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -79,14 +80,11 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 # Database
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("POSTGRES_DB"),
-        "USER": env("POSTGRES_USER"),
-        "PASSWORD": env("POSTGRES_PASSWORD"),
-        "HOST": env("POSTGRES_HOST", default="localhost"),
-        "PORT": env("POSTGRES_PORT", default="5432"),
-    }
+    "default": dj_database_url.parse(
+        env("DATABASE_URL", default="postgres://postgres:postgres@localhost:5432/realestate"),
+        conn_max_age=600,
+        ssl_require=True,
+    )
 }
 
 # Password validation
