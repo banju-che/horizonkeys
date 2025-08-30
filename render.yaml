@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: realestate-backend
+    env: python
+    plan: free
+    region: oregon
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+    startCommand: python manage.py migrate --noinput && gunicorn realestate.wsgi:application --bind 0.0.0.0:$PORT
+    envVars:
+      - key: DEBUG
+        value: "0"
+      - key: SECRET_KEY
+        value: "django-insecure-&8)kdgh(5gsr5uxu4$^y@uu8sz9)hg4pz_*$3q6+i^bx$$h%da"
+      - key: ALLOWED_HOSTS
+        value: "realestate-backend.onrender.com,127.0.0.1,localhost"
+      - key: CLOUD_NAME
+        value: "dwiaiz7b0"
+      - key: API_KEY
+        value: "387894422618679"
+      - key: API_SECRET
+        sync: false
+
+  - type: web
+    name: realestate-frontend
+    env: static
+    plan: free
+    region: oregon
+    buildCommand: npm ci && npm run build
+    staticPublishPath: build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: "https://realestate-backend.onrender.com"
+
+databases:
+  - name: realestate-db
+    plan: free
+    region: oregon
