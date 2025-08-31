@@ -12,4 +12,6 @@ python3 manage.py collectstatic --noinput
 
 echo "Starting Gunicorn..."
 # Start Gunicorn on the port Render provides
-exec gunicorn config.wsgi:application --bind 0.0.0.0:$PORT
+exec gunicorn config.wsgi:application \ 
+    --bind 0.0.0.0:$PORT \
+    --workers 3
