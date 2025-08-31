@@ -5,6 +5,6 @@ from .views import (
 )
 
 urlpatterns = [
-    path('properties/', PropertyListCreateView.as_view(), name='property-list-create'),
-    path('properties/<int:pk>', PropertyRetrieveUpdateDeleteView.as_view(), name='property-detail')
+    path('', PropertyListCreateView.as_view(), name='property-list-create'),
+    path('<int:pk>', PropertyRetrieveUpdateDeleteView.as_view(), name='property-detail')
 ]

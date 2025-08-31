@@ -5,6 +5,6 @@ from .views import (
 )
 
 urlpatterns = [
-    path('leads/', LeadListCreateView.as_view(), name='lead-list-create'),
-    path('lead/<int:pk>', LeadRetrieveUpdateDeleteView.as_view(), name='lead-detail')
+    path('', LeadListCreateView.as_view(), name='lead-list-create'),
+    path('<int:pk>', LeadRetrieveUpdateDeleteView.as_view(), name='lead-detail')
 ]
