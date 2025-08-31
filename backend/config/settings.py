@@ -80,27 +80,14 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 
 # Database
-if env.bool("DEBUG", default=False):
-    # Local development
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": env("POSTGRES_DB", default="realestate"),
-            "USER": env("POSTGRES_USER", default="postgres"),
-            "PASSWORD": env("POSTGRES_PASSWORD", default="postgres"),
-            "HOST": env("POSTGRES_HOST", default="localhost"),
-            "PORT": env("POSTGRES_PORT", default="5432"),
-        }
+
+# Database
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
-else:
-    # Production / Render
-    DATABASES = {
-        "default": dj_database_url.parse(
-            env("DATABASE_URL"),
-            conn_max_age=600,
-            ssl_require=True,
-        )
-    }
+}
 
 
 # Password validation
