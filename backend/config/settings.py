@@ -78,14 +78,30 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
+
 # Database
-DATABASES = {
-    "default": dj_database_url.parse(
-        env("DATABASE_URL", default="postgres://postgres:postgres@localhost:5432/realestate"),
-        conn_max_age=600,
-        ssl_require=True,
-    )
-}
+if env.bool("DEBUG", default=False):
+    # Local development
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": env("POSTGRES_DB", default="realestate"),
+            "USER": env("POSTGRES_USER", default="postgres"),
+            "PASSWORD": env("POSTGRES_PASSWORD", default="postgres"),
+            "HOST": env("POSTGRES_HOST", default="localhost"),
+            "PORT": env("POSTGRES_PORT", default="5432"),
+        }
+    }
+else:
+    # Production / Render
+    DATABASES = {
+        "default": dj_database_url.parse(
+            env("DATABASE_URL"),
+            conn_max_age=600,
+            ssl_require=True,
+        )
+    }
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -137,7 +153,7 @@ CORS_ALLOWED_ORIGINS = env.list(
     default=[
         "http://localhost:5173",
         "http://127.0.0.1:5173",
-        "https://horizonkeys-1.onrender.com/"
+        "https://horizonkeys-1.onrender.com"
     ],
 )
 CORS_ALLOW_CREDENTIALS = True
