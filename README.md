@@ -1,12 +1,14 @@
-# 🏡 Real Estate Property Management API
+# 🏡 Horizonkeys
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/<your-username>/<your-repo>/ci.yml?branch=main)](https://github.com/<your-username>/<your-repo>/actions)
 ![Python](https://img.shields.io/badge/python-3.11-blue)
 ![Django](https://img.shields.io/badge/django-5.0-green)
 ![DRF](https://img.shields.io/badge/DRF-3.16-red)
 ![Docker](https://img.shields.io/badge/docker-ready-blue)
+![GHCR](https://img.shields.io/badge/GHCR-packages-orange)
+![Render](https://img.shields.io/badge/deployed%20on-Render-purple)
 
-A full-stack real estate property management system built with **Django REST Framework**, containerized with **Docker**, tested with **unittests/pytest**, and deployed using **CI/CD (GitHub Actions + Render)**.  
+A full-stack real estate property management system built with **Django REST Framework**, containerized with **Docker**, published on **GitHub Container Registry (GHCR)**, and deployed using **Render** with CI/CD.  
 Frontend UI designed in **Figma** and styled with **TailwindCSS**.  
 
 ---
@@ -16,7 +18,7 @@ Frontend UI designed in **Figma** and styled with **TailwindCSS**.
 ### 🔹 Backend
 - Manage **Properties** (CRUD)  
 - Manage **Leads/Inquiries**  
-- JWT Authentication (optional if added)  
+- JWT Authentication   
 - Search, filter, and ordering for properties  
 - Custom Django admin for managing data  
 
@@ -25,9 +27,10 @@ Frontend UI designed in **Figma** and styled with **TailwindCSS**.
 - Designs prototyped in Figma  
 
 ### 🔹 DevOps
-- Dockerized (backend + database)  
-- CI/CD pipeline with GitHub Actions  
-- Auto deployment on Render  
+- **Dockerized** backend + database  
+- **GHCR** for image registry  
+- **CI/CD** pipeline with GitHub Actions  
+- **Auto deployment** on Render  
 
 ---
 
@@ -36,7 +39,7 @@ Frontend UI designed in **Figma** and styled with **TailwindCSS**.
 - **Backend:** Django, Django REST Framework  
 - **Database:** PostgreSQL (SQLite for local dev)  
 - **Frontend:** TailwindCSS, Figma designs  
-- **DevOps:** Docker, GitHub Actions, Render  
+- **DevOps:** Docker, GitHub Actions, GHCR, Render  
 - **Testing:** Django TestCase / DRF APITestCase  
 
 ---
@@ -77,6 +80,14 @@ ALLOWED_HOSTS=localhost,127.0.0.1
 bash
 Copy code
 docker-compose up --build
+🐳 Using GHCR Image
+This project is published on GitHub Container Registry (GHCR).
+You can pull the Docker image directly:
+
+bash
+Copy code
+docker pull ghcr.io/<your-username>/<your-repo>:latest
+docker run -p 8000:8000 ghcr.io/<your-username>/<your-repo>:latest
 🧪 Running Tests
 bash
 Copy code
@@ -125,12 +136,17 @@ Database schema diagram:
 
 🚀 Deployment
 This project is deployed at:
-🔗 Live Demo
+🔗 Live Demo on Render
+
+Docker Image available at:
+🐳 GHCR Package
 
 👤 Author
 Julius Gacheru
 
-💼 LinkedIn
+💼 LinkedIn: www.linkedin.com/in/julius-gacheru-ba64b0345
 
-💻 GitHub
+💻 GitHub: https://github.com/banju-che
+
+My Portfolio: https://portfolio-plum-omega-72.vercel.app/
 
