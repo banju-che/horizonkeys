@@ -86,8 +86,18 @@ You can pull the Docker image directly:
 
 bash
 Copy code
-docker pull ghcr.io/<your-username>/<your-repo>:latest
-docker run -p 8000:8000 ghcr.io/<your-username>/<your-repo>:latest
+
+#Backend image:
+
+docker pull ghcr.io/juliusgacheru/horizonkeys-backend:latest
+docker run -p 8000:8000 ghcr.io/juliusgacheru/horizonkeys-backend:latest
+
+
+#Nginx image:
+
+docker pull ghcr.io/juliusgacheru/horizonkeys-nginx:latest
+docker run -p 80:80 ghcr.io/juliusgacheru/horizonkeys-nginx:latest
+
 🧪 Running Tests
 bash
 Copy code
@@ -136,7 +146,7 @@ Database schema diagram:
 
 🚀 Deployment
 This project is deployed at:
-🔗 Live Demo on Render
+🔗 [Live Demo on Render](https://horizonkeys-1.onrender.com)
 
 Docker Image available at:
 🐳 GHCR Package
