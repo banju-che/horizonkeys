@@ -1,6 +1,6 @@
 # 🏡 Horizonkeys
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/<your-username>/<your-repo>/ci.yml?branch=main)](https://github.com/<your-username>/<your-repo>/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/<banju-che>/<[horizonkeys.git]>/ci.yml?branch=main)](https://github.com/<your-username>/<your-repo>/actions)
 ![Python](https://img.shields.io/badge/python-3.11-blue)
 ![Django](https://img.shields.io/badge/django-5.0-green)
 ![DRF](https://img.shields.io/badge/DRF-3.16-red)
@@ -65,8 +65,8 @@ Copy code
 
 ### 🔹 Clone repository
 ```bash
-git clone https://github.com/<your-username>/<your-repo>.git
-cd <your-repo>
+git clone https://github.com/banju-che/horizonkeys.git
+cd horizonkeys
 🔹 Environment variables
 Create a .env file (or use .env.example) with:
 
