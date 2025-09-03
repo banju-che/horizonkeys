@@ -1,6 +1,6 @@
 # 🏡 Horizonkeys
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/<banju-che>/<[horizonkeys.git]>/ci.yml?branch=main)](https://github.com/<your-username>/<your-repo>/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/banju-che/horizonkeys/ci.yml?branch=main)](https://github.com/banju-che/horizonkeys/actions)
 ![Python](https://img.shields.io/badge/python-3.11-blue)
 ![Django](https://img.shields.io/badge/django-5.0-green)
 ![DRF](https://img.shields.io/badge/DRF-3.16-red)
@@ -8,172 +8,200 @@
 ![GHCR](https://img.shields.io/badge/GHCR-packages-orange)
 ![Render](https://img.shields.io/badge/deployed%20on-Render-purple)
 
-A full-stack real estate property management system built with **Django REST Framework**, containerized with **Docker**, published on **GitHub Container Registry (GHCR)**, and deployed using **Render** with CI/CD.  
-Frontend UI designed in **Figma** and styled with **TailwindCSS**.  
+---
+
+A full-stack **real estate property management system** built with:
+
+- **Django REST Framework** (backend)
+- Containerized via **Docker**
+- Images published to **GitHub Container Registry (GHCR)**
+- Deployed on **Render**
+- **Frontend UI** designed in **Figma** & styled with **TailwindCSS**
 
 ---
 
 ## 🚀 Features
 
-### 🔹 Backend
-- Manage **Properties** (CRUD)  
-- Manage **Leads/Inquiries**  
-- JWT Authentication   
-- Search, filter, and ordering for properties  
-- Custom Django admin for managing data  
+<details>
+  <summary>🔹 <strong>Backend</strong></summary>
 
-### 🔹 Frontend
-- Responsive UI built with TailwindCSS  
-- Designs prototyped in Figma  
+  - Manage <strong>Properties</strong> (CRUD)
+  - Manage <strong>Leads/Inquiries</strong>
+  - JWT Authentication
+  - Search, filter, and order properties
+  - Custom Django admin for data management
+</details>
 
-### 🔹 DevOps
-- **Dockerized** backend + database  
-- **GHCR** for image registry  
-- **CI/CD** pipeline with GitHub Actions  
-- **Auto deployment** on Render  
+<details>
+  <summary>🔹 <strong>Frontend</strong></summary>
+
+  - Responsive UI with TailwindCSS
+  - Designs prototyped in Figma
+</details>
+
+<details>
+  <summary>🔹 <strong>DevOps</strong></summary>
+
+  - Dockerized backend & database
+  - Images published to GHCR
+  - CI/CD pipeline via GitHub Actions
+  - Auto deployment on Render
+</details>
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Backend:** Django, Django REST Framework  
-- **Database:** PostgreSQL (SQLite for local dev)  
-- **Frontend:** TailwindCSS, Figma designs  
-- **DevOps:** Docker, GitHub Actions, GHCR, Render  
-- **Testing:** Django TestCase / DRF APITestCase  
+| Layer     | Technology                         |
+|-----------|------------------------------------|
+| Backend   | Django, Django REST Framework      |
+| Database  | PostgreSQL (SQLite for local dev)  |
+| Frontend  | TailwindCSS, Figma designs         |
+| DevOps    | Docker, GitHub Actions, GHCR, Render |
+| Testing   | Django TestCase / DRF APITestCase  |
 
 ---
 
 ## 📂 Project Structure
 
+```
 project-root/
-│── properties/ # Property app (models, serializers, views, tests)
-│── leads/ # Leads app (models, serializers, views, tests)
-│── config/ # Django project settings
-│── requirements.txt # Python dependencies
-│── docker-compose.yml
-│── Dockerfile
-│── .github/workflows # CI/CD pipelines
-│── README.md
+│
+├── properties/         # Property app (models, serializers, views, tests)
+├── leads/              # Leads app (models, serializers, views, tests)
+├── config/             # Django project settings
+├── requirements.txt    # Python dependencies
+├── docker-compose.yml
+├── Dockerfile
+├── .github/workflows/  # CI/CD pipelines
+└── README.md
+```
 
-🚀 Getting Started
-1️⃣ Clone Repository
+---
+
+## ⚡ Getting Started
+
+### 1️⃣ Clone the Repository
+```sh
 git clone https://github.com/banju-che/horizonkeys.git
 cd horizonkeys
+```
 
-2️⃣ Environment Variables
+### 2️⃣ Configure Environment Variables
 
-Create a .env file (or copy .env.example) and configure:
+Create a `.env` file (or copy `.env.example`) and set:
 
+```
 SECRET_KEY=your-django-secret
 DEBUG=True
 DATABASE_URL=postgres://user:password@db:5432/dbname
 ALLOWED_HOSTS=localhost,127.0.0.1
+```
 
-🐳 Run with Docker
+### 🐳 Run with Docker
+```sh
 docker-compose up --build
+```
 
-📦 Using GHCR Images
+---
 
-This project is also published on GitHub Container Registry (GHCR).
+## 📦 Using GHCR Images
 
-Backend image:
+This project is published on GitHub Container Registry (GHCR).
+
+**Backend image:**
+```sh
 docker pull ghcr.io/juliusgacheru/horizonkeys-backend:latest
 docker run -p 8000:8000 ghcr.io/juliusgacheru/horizonkeys-backend:latest
+```
 
-Nginx image:
+**Nginx image:**
+```sh
 docker pull ghcr.io/juliusgacheru/horizonkeys-nginx:latest
 docker run -p 80:80 ghcr.io/juliusgacheru/horizonkeys-nginx:latest
+```
 
-⚡ CI/CD Pipeline
+---
 
-This project uses GitHub Actions for Continuous Integration & Deployment:
+## ⚡ CI/CD Pipeline
 
-CI (Continuous Integration)
+- GitHub Actions for continuous integration & deployment
+- Workflow file: `.github/workflows/deploy.yml`
 
-Runs tests (pytest & Django tests) on every push and pull request.
+**CI:**  
+Runs tests (`pytest` & Django tests) on every push & PR to maintain code quality.
 
-Ensures code quality and prevents breaking changes.
+**CD:**  
+Builds & pushes Docker images to GHCR.  
+Render auto-deploys the latest images.
 
-CD (Continuous Deployment)
+---
 
-Builds Docker images for both backend and Nginx.
+## 🧪 Running Tests
 
-Pushes images to GitHub Container Registry (GHCR):
-
-ghcr.io/juliusgacheru/horizonkeys-backend:latest
-
-ghcr.io/juliusgacheru/horizonkeys-nginx:latest
-
-Render automatically pulls the latest images and deploys them live.
-
-📄 Workflow file: .github/workflows/deploy.yml
-
-🧪 Running Tests
+```sh
 # Django built-in tests
 python manage.py test
 
 # Or with pytest
 pytest
+```
 
-🔗 API Endpoints
-Properties
+---
 
-GET /properties/ → list all properties
+## 🔗 API Endpoints
 
-POST /properties/ → create property
+### Properties
 
-GET /properties/<id>/ → retrieve property
+| Method | Endpoint             | Description        |
+|--------|----------------------|-------------------|
+| GET    | `/properties/`       | List all properties |
+| POST   | `/properties/`       | Create property     |
+| GET    | `/properties/<id>/`  | Retrieve property  |
+| PUT    | `/properties/<id>/`  | Update property    |
+| DELETE | `/properties/<id>/`  | Delete property    |
 
-PUT /properties/<id>/ → update property
+### Leads
 
-DELETE /properties/<id>/ → delete property
+| Method | Endpoint         | Description      |
+|--------|------------------|-----------------|
+| GET    | `/leads/`        | List all leads  |
+| POST   | `/leads/`        | Create lead     |
+| GET    | `/leads/<id>/`   | Retrieve lead   |
+| PUT    | `/leads/<id>/`   | Update lead     |
+| DELETE | `/leads/<id>/`   | Delete lead     |
 
-Leads
+---
 
-GET /leads/ → list all leads
+## 📖 Documentation
 
-POST /leads/ → create lead
+- API docs: `/swagger/` or `/redoc/` (if enabled)
+- Database schema diagram: *(add ERD here if available)*
 
-GET /leads/<id>/ → retrieve lead
+---
 
-PUT /leads/<id>/ → update lead
+## 📸 Screenshots
 
-DELETE /leads/<id>/ → delete lead
+_Add screenshots or GIFs of your Tailwind frontend here!_
 
-📸 Screenshots
+- Property list page
+- Property detail page
+- Lead submission form
 
-Add screenshots or GIFs once your Tailwind frontend is ready.
-Examples:
+---
 
-Property list page
+## 🚀 Deployment
 
-Property detail page
+- 🔗 **Live Demo:** [Horizonkeys on Render](https://horizonkeys-1.onrender.com)
+- 🐳 **Docker Images:**  
+  - Backend: `ghcr.io/juliusgacheru/horizonkeys-backend:latest`  
+  - Nginx: `ghcr.io/juliusgacheru/horizonkeys-nginx:latest`
 
-Lead submission form
+---
 
-📖 Documentation
+## 👤 Author
 
-API docs available at /swagger/ or /redoc/ (if enabled).
+**Julius Gacheru**  
+[LinkedIn](#) | [GitHub](#) | [Portfolio](#)
 
-Database schema diagram: (add ERD here if available)
-
-🚀 Deployment
-
-🔗 Live Demo on Render → https://horizonkeys-1.onrender.com
-
-🐳 Docker Images on GHCR →
-
-Backend: ghcr.io/juliusgacheru/horizonkeys-backend:latest
-
-Nginx: ghcr.io/juliusgacheru/horizonkeys-nginx:latest
-
-👤 Author
-
-Julius Gacheru
-
-💼 LinkedIn
-
-💻 GitHub
-
-🌐 Portfolio
+---
