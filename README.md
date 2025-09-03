@@ -56,58 +56,69 @@ project-root/
 │── .github/workflows # CI/CD pipelines
 │── README.md
 
-yaml
-Copy code
-
----
-
-## ⚙️ Installation & Setup
-
-### 🔹 Clone repository
-```bash
+🚀 Getting Started
+1️⃣ Clone Repository
 git clone https://github.com/banju-che/horizonkeys.git
 cd horizonkeys
-🔹 Environment variables
-Create a .env file (or use .env.example) with:
 
-ini
-Copy code
+2️⃣ Environment Variables
+
+Create a .env file (or copy .env.example) and configure:
+
 SECRET_KEY=your-django-secret
 DEBUG=True
 DATABASE_URL=postgres://user:password@db:5432/dbname
 ALLOWED_HOSTS=localhost,127.0.0.1
-🔹 Run with Docker
-bash
-Copy code
+
+🐳 Run with Docker
 docker-compose up --build
-🐳 Using GHCR Image
-This project is published on GitHub Container Registry (GHCR).
-You can pull the Docker image directly:
 
-bash
-Copy code
+📦 Using GHCR Images
 
-#Backend image:
+This project is also published on GitHub Container Registry (GHCR).
 
+Backend image:
 docker pull ghcr.io/juliusgacheru/horizonkeys-backend:latest
 docker run -p 8000:8000 ghcr.io/juliusgacheru/horizonkeys-backend:latest
 
-
-#Nginx image:
-
+Nginx image:
 docker pull ghcr.io/juliusgacheru/horizonkeys-nginx:latest
 docker run -p 80:80 ghcr.io/juliusgacheru/horizonkeys-nginx:latest
 
+⚡ CI/CD Pipeline
+
+This project uses GitHub Actions for Continuous Integration & Deployment:
+
+CI (Continuous Integration)
+
+Runs tests (pytest & Django tests) on every push and pull request.
+
+Ensures code quality and prevents breaking changes.
+
+CD (Continuous Deployment)
+
+Builds Docker images for both backend and Nginx.
+
+Pushes images to GitHub Container Registry (GHCR):
+
+ghcr.io/juliusgacheru/horizonkeys-backend:latest
+
+ghcr.io/juliusgacheru/horizonkeys-nginx:latest
+
+Render automatically pulls the latest images and deploys them live.
+
+📄 Workflow file: .github/workflows/deploy.yml
+
 🧪 Running Tests
-bash
-Copy code
 # Django built-in tests
 python manage.py test
 
 # Or with pytest
 pytest
+
 🔗 API Endpoints
 Properties
+
 GET /properties/ → list all properties
 
 POST /properties/ → create property
@@ -119,6 +130,7 @@ PUT /properties/<id>/ → update property
 DELETE /properties/<id>/ → delete property
 
 Leads
+
 GET /leads/ → list all leads
 
 POST /leads/ → create lead
@@ -130,6 +142,7 @@ PUT /leads/<id>/ → update lead
 DELETE /leads/<id>/ → delete lead
 
 📸 Screenshots
+
 Add screenshots or GIFs once your Tailwind frontend is ready.
 Examples:
 
@@ -140,23 +153,27 @@ Property detail page
 Lead submission form
 
 📖 Documentation
+
 API docs available at /swagger/ or /redoc/ (if enabled).
 
-Database schema diagram:
+Database schema diagram: (add ERD here if available)
 
 🚀 Deployment
-This project is deployed at:
-🔗 [Live Demo on Render](https://horizonkeys-1.onrender.com)
 
-Docker Image available at:
-🐳 GHCR Package
+🔗 Live Demo on Render → https://horizonkeys-1.onrender.com
+
+🐳 Docker Images on GHCR →
+
+Backend: ghcr.io/juliusgacheru/horizonkeys-backend:latest
+
+Nginx: ghcr.io/juliusgacheru/horizonkeys-nginx:latest
 
 👤 Author
+
 Julius Gacheru
 
-💼 LinkedIn: www.linkedin.com/in/julius-gacheru-ba64b0345
+💼 LinkedIn
 
-💻 GitHub: https://github.com/banju-che
+💻 GitHub
 
-My Portfolio: https://portfolio-plum-omega-72.vercel.app/
-
+🌐 Portfolio
