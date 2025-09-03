@@ -1,0 +1,44 @@
+backend:
+  runs-on: ubuntu-latest
+  services:
+    postgres:
+      image: postgres:15
+      env:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: test_db
+      ports:
+        - 5432:5432
+      options: >-
+        --health-cmd="pg_isready -U postgres"
+        --health-interval=10s
+        --health-timeout=5s
+        --health-retries=5
+
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Run migrations (local Postgres in CI)
+      env:
+        DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
+      run: python manage.py migrate --noinput
+
+    - name: Run backend tests
+      env:
+        DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
+      run: python manage.py test
+
+    - name: Run migrations on Render DB (production)
+      if: github.ref == 'refs/heads/main'
+      env:
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      run: python manage.py migrate --noinput

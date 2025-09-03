@@ -37,3 +37,6 @@ databases:
   - name: realestate-db
     plan: free
     region: oregon
+
+startCommand: ./start.sh
+

@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from cloudinary.models import CloudinaryField
+from django.core.exceptions import ValidationError
 
 class Property(models.Model):
 
@@ -23,5 +24,9 @@ class Property(models.Model):
     listed_date = models.DateTimeField(auto_now_add=True)
     agent = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='property')
 
+    def clean(self):
+        if self.price < 0:
+            raise ValidationError({"price": "Price cannot be negative."})
+    
     def __str__(self):
         return self.title
