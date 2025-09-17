@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     "properties",
     "users",
     "leads",
+    "blogs",
+    "categories",
+    "cities"
 ]
 
 MIDDLEWARE = [

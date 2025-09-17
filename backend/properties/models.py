@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 from cloudinary.models import CloudinaryField
 from django.core.exceptions import ValidationError
+from categories.models import Category
+from cities.models import City
 
 class Property(models.Model):
 
@@ -14,8 +16,10 @@ class Property(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     price = models.DecimalField(max_digits=12, decimal_places=2)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, related_name="properties")
     property_type = models.CharField(max_length=20, choices=PROPERTY_TYPE)
     location = models.CharField(max_length=255)
+    city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True, related_name="properties")
     bedrooms = models.IntegerField()
     bathrooms = models.IntegerField()
     status = models.CharField(max_length=20, default='available')

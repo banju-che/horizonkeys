@@ -2,32 +2,36 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/HomePage";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Listings from "./pages/Listings";
+import Listings from "./pages/FeaturedListings"; 
 import PropertyDetail from "./pages/Propertydetail";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Cities from "./pages/Cities";
+import CityDetail from "./pages/CityDetail";
+import Agents from "./pages/Agents";
 
 function App() {
   return (
-    <>
-      <div className="flex flex-col min-h-screen">
-        <Navbar />
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/listings" element={<Listings />} />
-            <Route path="/property/:id" element={<PropertyDetail />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </>
+    <div className="flex flex-col min-h-screen">
+      <Navbar />
+      <main className="flex-grow">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/listings" element={<Listings />} /> 
+          <Route path="/property/:id" element={<PropertyDetail />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/cities" element={<Cities />} />
+          <Route path="/cities/:cityName" element={<CityDetail />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+           <Route path="/agents" element={<Agents />} />
+        </Routes>
+      </main>
+      <Footer />
+    </div>
   );
 }
 

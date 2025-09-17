@@ -1,17 +1,27 @@
 import Hero from "../components/Hero";
-import Discover from "../components/Discover";
-import About from "../components/About";
-import HowItWorks from "../components/HowItWorks";
-import WhyChooseUs from "../components/WhyChooseUs";
+import Featured from "../components/Featured";
+import Explore from "../components/Explore";
+import SellingOptionsSection from "../components/SellingOptionsSection"
+import ExploreByCities from "../components/ExploreByCities"
+import Testimonials from "../components/Testimonials"
+import Footer from "../components/Footer"
+import Agents from "../components/Agents"
+import Blogs from "../components/Blogs"; 
+import Stats from "../components/Stats"
 
 export default function LandingPage() {
   return (
     <div className="font-sans">
-      <Hero />
-      <Discover />
-      <About />
-      <HowItWorks />
-      <WhyChooseUs />
+        <Hero />   
+        <ExploreByCities />                               
+        <Featured />                   
+        <Explore />                    
+        <SellingOptionsSection />  
+        <Stats /> 
+        <Testimonials />  
+        <Agents />  
+        <Blogs />                    
+        <Footer />    
     </div>
   );
 }
