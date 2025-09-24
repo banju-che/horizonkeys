@@ -1,81 +1,64 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import { getCity } from "../services/CitiesServices";
 
-// Reuse properties array (later, fetch from backend instead)
-const properties = [
-  {
-    id: 1,
-    title: "Luxury Apartment in Nairobi",
-    city: "Nairobi",
-    price: "$120,000",
-    image: "https://images.unsplash.com/photo-1560448075-bb0e9a2adf9d?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: 2,
-    title: "Beach House in Mombasa",
-    city: "Mombasa",
-    price: "$250,000",
-    image: "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: 3,
-    title: "Modern House in Kisumu",
-    city: "Kisumu",
-    price: "$90,000",
-    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118a?auto=format&fit=crop&w=800&q=80",
-  },
-];
+export default function CityDetailPage() {
+  const { id } = useParams();
+  const [city, setCity] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-const CityDetail = () => {
-  const { cityName } = useParams();
+  useEffect(() => {
+    const fetchCity = async () => {
+      try {
+        const res = await getCity();
+        setCity(res);
+      } catch (err) {
+        setError("Failed to load city details.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCity();
+  }, [id]);
 
-  // Filter properties for this city
-  const cityProperties = properties.filter(
-    (property) => property.city.toLowerCase() === cityName.toLowerCase()
-  );
+  if (loading) return <p className="text-center py-10">Loading city...</p>;
+  if (error) return <p className="text-center text-red-500">{error}</p>;
+  if (!city) return <p className="text-center">City not found.</p>;
 
   return (
-    <div className="w-[75%] mx-auto py-16">
-      <h2 className="text-2xl font-bold capitalize mb-6">
-        Properties in {cityName}
-      </h2>
-
-      {cityProperties.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          {cityProperties.map((property) => (
-            <div
-              key={property.id}
-              className="border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition"
-            >
-              <img
-                src={property.image}
-                alt={property.title}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4">
-                <h3 className="font-semibold">{property.title}</h3>
-                <p className="text-gray-500">{property.price}</p>
-                <Link
-                  to={`/property/${property.id}`}
-                  className="mt-3 inline-block text-blue-600 hover:underline"
-                >
-                  View Details →
-                </Link>
-              </div>
-            </div>
-          ))}
+    <main className="min-h-screen bg-gray-50">
+      <section className="relative h-80">
+        <img
+          src={city.img}
+          alt={city.name}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-white">
+            {city.name}
+          </h1>
         </div>
-      ) : (
-        <p className="text-gray-600">No properties available in {cityName} yet.</p>
-      )}
+      </section>
 
-      <div className="mt-10 text-center">
-        <Link to="/cities" className="text-blue-600 hover:underline">
-          ← Back to All Cities
+      <section className="max-w-4xl mx-auto px-6 py-12">
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">
+          About {city.name}
+        </h2>
+        <p className="text-gray-600 mb-6">
+          This city currently has{" "}
+          <span className="font-semibold text-gray-900">{city.count}</span>{" "}
+          properties listed. You can explore the real estate market, find homes,
+          apartments, and investment opportunities in {city.name}.
+        </p>
+
+        <Link
+          to="/properties"
+          className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-white font-semibold shadow hover:bg-emerald-700 transition"
+        >
+          View Properties
         </Link>
-      </div>
-    </div>
+      </section>
+    </main>
   );
-};
-
-export default CityDetail;
+}

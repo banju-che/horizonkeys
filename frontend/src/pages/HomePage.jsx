@@ -12,7 +12,7 @@ import Stats from "../components/Stats"
 export default function LandingPage() {
   return (
     <div className="font-sans">
-        <Hero />   
+        <Hero /> 
         <ExploreByCities />                               
         <Featured />                   
         <Explore />                    

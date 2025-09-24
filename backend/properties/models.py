@@ -4,6 +4,7 @@ from cloudinary.models import CloudinaryField
 from django.core.exceptions import ValidationError
 from categories.models import Category
 from cities.models import City
+from agents.models import Agent
 
 class Property(models.Model):
 
@@ -24,10 +25,14 @@ class Property(models.Model):
     bathrooms = models.IntegerField()
     status = models.CharField(max_length=20, default='available')
     square_feet = models.IntegerField()
-    image = CloudinaryField('image')
-    listed_date = models.DateTimeField(auto_now_add=True)
-    agent = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='property')
-
+    image = models.URLField(max_length=500, blank=True, null=True)
+    agent = models.ForeignKey(Agent, on_delete=models.CASCADE, related_name='property')
+    created_at = models.DateTimeField(auto_now_add=True)  
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['-created_at']
+    
     def clean(self):
         if self.price < 0:
             raise ValidationError({"price": "Price cannot be negative."})

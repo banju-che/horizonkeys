@@ -1,7 +1,8 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getAgents } from "../services/AgentsService";
 
-const agents = [
+/*const agents = [
   {
     id: 1,
     name: "John Mwangi",
@@ -26,9 +27,26 @@ const agents = [
     image: "https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=400&q=80",
     listings: 15,
   },
-];
+]; */
 
 const Agents = () => {
+
+  const [ agents, setAgents ] = useState([])
+  const [ loading, setLoading ] = useState(true)
+
+  useEffect(() => {
+    const fetchAgents = async () => {
+      const res = await getAgents ()
+      setAgents(res)
+      setLoading(false)
+    }
+    fetchAgents()
+  },[])
+
+  if (loading) {
+    return <p className="text-center mt-4">Loading cities .....</p>;
+  }
+  
   return (
     <div className="w-[75%] mx-auto py-16">
       <h2 className="text-2xl font-bold mb-8">Meet Our Agents</h2>

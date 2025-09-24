@@ -6,6 +6,9 @@ from pathlib import Path
 import os
 import environ
 import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -48,7 +51,8 @@ INSTALLED_APPS = [
     "leads",
     "blogs",
     "categories",
-    "cities"
+    "cities",
+    "agents",
 ]
 
 MIDDLEWARE = [
@@ -85,12 +89,16 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv("DATABASE_URL", "sqlite:///db.sqlite3"),
-        conn_max_age=600,
-        ssl_require=True
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'horizonkeys',
+        'USER': 'horizonuser',
+        'PASSWORD': '11449646',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
+
 
 
 # Password validation
@@ -115,11 +123,13 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 # Cloudinary
-CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": env("CLOUD_NAME", default=""),
-    "API_KEY": env("API_KEY", default=""),
-    "API_SECRET": env("API_SECRET", default=""),
-}
+cloudinary.config( 
+  cloud_name = env("CLOUDINARY_CLOUD_NAME"), 
+  api_key = env("CLOUDINARY_API_KEY"), 
+  api_secret = env("CLOUDINARY_API_SECRET"),
+  secure = True
+)
+
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 # Custom User Model
@@ -134,7 +144,7 @@ REST_FRAMEWORK = {
         "django_filters.rest_framework.DjangoFilterBackend",
         "rest_framework.filters.SearchFilter",
         "rest_framework.filters.OrderingFilter",
-    ),
+    ) 
 }
 
 # CORS
@@ -149,3 +159,8 @@ CORS_ALLOWED_ORIGINS = env.list(
 CORS_ALLOW_CREDENTIALS = True
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Unsplash
+UNSPLASH_ACCESS_KEY = env("UNSPLASH_ACCESS_KEY", default="")
+
+

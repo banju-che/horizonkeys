@@ -3,7 +3,7 @@ from rest_framework import serializers
 from .models import Category
 
 class CategorySerializer(serializers.ModelSerializer):
-    count = serializers.CharField(source="count", read_only=True)
+    count = serializers.CharField( read_only=True)
 
     class Meta:
         model = Category

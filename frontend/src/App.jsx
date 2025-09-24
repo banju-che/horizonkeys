@@ -10,7 +10,9 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Cities from "./pages/Cities";
 import CityDetail from "./pages/CityDetail";
-import Agents from "./pages/Agents";
+import Agents from "./pages/Agents"
+import AgentDetail from "./pages/AgentDetail";
+import Test from "./pages/Test";
 
 function App() {
   return (
@@ -20,14 +22,15 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/listings" element={<Listings />} /> 
-          <Route path="/property/:id" element={<PropertyDetail />} />
+          <Route path="/agent" element={<AgentDetail />} />
           <Route path="/about" element={<About />} />
           <Route path="/cities" element={<Cities />} />
           <Route path="/cities/:cityName" element={<CityDetail />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-           <Route path="/agents" element={<Agents />} />
+          <Route path="/agents" element={<Agents />} />
+          <Route path="/test" element={<Test />} />
         </Routes>
       </main>
       <Footer />
