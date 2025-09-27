@@ -1,35 +1,35 @@
 """
-Django settings for config project.
+Django settings for HorizonKeys project (WSL + Supabase + Cloudinary + DRF).
 """
 
-from pathlib import Path
 import os
-import environ
+from pathlib import Path
 import dj_database_url
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
+from dotenv import load_dotenv
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# ------------------------------
+# BASE DIRECTORY
+# ------------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Initialise environment variables
-env = environ.Env(
-    DEBUG=(bool, False)
-)
+# ------------------------------
+# LOAD ENVIRONMENT VARIABLES
+# ------------------------------
+# .env file in project root
+load_dotenv(os.path.join(BASE_DIR, ".env"))
 
-# Read from .env file in BASE_DIR if it exists
-env_file = os.path.join(BASE_DIR, ".env")
-if os.path.exists(env_file):
-    environ.Env.read_env(env_file)
-
+# ------------------------------
 # SECURITY
-SECRET_KEY = env("SECRET_KEY", default="fallback-secret-key")
-DEBUG = env("DEBUG", default=False)
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["127.0.0.1", "localhost"])
+# ------------------------------
+DEBUG = os.getenv("DEBUG", "0") == "1"
+SECRET_KEY = os.getenv("SECRET_KEY", "fallback-secret-key")
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
-# Application definition
+# ------------------------------
+# INSTALLED APPS
+# ------------------------------
 INSTALLED_APPS = [
+    # Django default
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -55,6 +55,9 @@ INSTALLED_APPS = [
     "agents",
 ]
 
+# ------------------------------
+# MIDDLEWARE
+# ------------------------------
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -68,6 +71,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "config.urls"
 
+# ------------------------------
+# TEMPLATES
+# ------------------------------
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -85,23 +91,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-
-# Database
-
+# ------------------------------
+# DATABASE
+# ------------------------------
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'horizonkeys',
-        'USER': 'horizonuser',
-        'PASSWORD': '11449646',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    "default": dj_database_url.config(
+        default=os.getenv("DATABASE_URL"),
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 
+# Debug print to confirm database engine
+print("DATABASES =", DATABASES)
 
-
-# Password validation
+# ------------------------------
+# PASSWORD VALIDATION
+# ------------------------------
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
@@ -109,33 +115,44 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-# Internationalization
+# ------------------------------
+# INTERNATIONALIZATION
+# ------------------------------
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
-# Static & Media
+# ------------------------------
+# STATIC & MEDIA
+# ------------------------------
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-# Cloudinary
-cloudinary.config( 
-  cloud_name = env("CLOUDINARY_CLOUD_NAME"), 
-  api_key = env("CLOUDINARY_API_KEY"), 
-  api_secret = env("CLOUDINARY_API_SECRET"),
-  secure = True
+# ------------------------------
+# CLOUDINARY
+# ------------------------------
+import cloudinary
+cloudinary.config(
+    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.getenv("CLOUDINARY_API_KEY"),
+    api_secret=os.getenv("CLOUDINARY_API_SECRET"),
+    secure=True
 )
 
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
-# Custom User Model
+# ------------------------------
+# CUSTOM USER MODEL
+# ------------------------------
 AUTH_USER_MODEL = "users.CustomUser"
 
-# DRF & JWT
+# ------------------------------
+# REST FRAMEWORK & JWT
+# ------------------------------
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
@@ -144,23 +161,25 @@ REST_FRAMEWORK = {
         "django_filters.rest_framework.DjangoFilterBackend",
         "rest_framework.filters.SearchFilter",
         "rest_framework.filters.OrderingFilter",
-    ) 
+    ),
 }
 
+# ------------------------------
 # CORS
-CORS_ALLOWED_ORIGINS = env.list(
+# ------------------------------
+CORS_ALLOWED_ORIGINS = os.getenv(
     "CORS_ALLOWED_ORIGINS",
-    default=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "https://horizonkeys-1.onrender.com"
-    ],
-)
+    "http://localhost:5173,http://127.0.0.1:5173,https://horizonkeys-1.onrender.com"
+).split(",")
+
 CORS_ALLOW_CREDENTIALS = True
 
+# ------------------------------
+# DEFAULT AUTO FIELD
+# ------------------------------
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Unsplash
-UNSPLASH_ACCESS_KEY = env("UNSPLASH_ACCESS_KEY", default="")
-
-
+# ------------------------------
+# UNSPLASH ACCESS KEY
+# ------------------------------
+UNSPLASH_ACCESS_KEY = os.getenv("UNSPLASH_ACCESS_KEY", "")

@@ -1,46 +1,50 @@
-version: '3.9'
+version: "3.9"
 
 services:
   backend:
     build:
-      context: ./backend    # Only watch backend folder for rebuilds
-      dockerfile: Dockerfile
-    container_name: realestate-backend
+      context: ./backend
+      dockerfile: ${DOCKERFILE:-Dockerfile}   # Dockerfile (dev) or Dockerfile.prod (prod)
+    container_name: horizonkeys-backend
     ports:
       - "8000:8000"
     volumes:
-      - ./backend:/app
-      - ./backend:/app
+      - ./backend:/app   # live reload in dev; ignored in prod builds
       - static_volume:/app/staticfiles
       - media_volume:/app/media
+    env_file:
+      - ./.env.${ENV:-dev}   # loads .env.dev or .env.prod
     depends_on:
-      - db
+      - frontend
+    command: ${BACKEND_CMD:-python manage.py runserver 0.0.0.0:8000}
 
   frontend:
     build:
-      context: ./frontend   # Only watch frontend folder for rebuilds
-      dockerfile: Dockerfile
-    container_name: realestate-frontend
+      context: ./frontend
+      dockerfile: ${DOCKERFILE:-Dockerfile}
+    container_name: horizonkeys-frontend
     ports:
       - "3000:3000"
     volumes:
       - ./frontend:/app
     stdin_open: true
     tty: true
+    command: ${FRONTEND_CMD:-npm start}
 
-  db:
-    image: postgres:15
-    container_name: realestate-db
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: horizonkeys-nginx
     ports:
-      - "5432:5432"
+      - "80:80"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - static_volume:/vol/static
+      - media_volume:/vol/media
+      - ./frontend/dist:/usr/share/nginx/html   # serve built frontend in prod
+    depends_on:
+      - backend
 
 volumes:
-  postgres_data:
   static_volume:
   media_volume:

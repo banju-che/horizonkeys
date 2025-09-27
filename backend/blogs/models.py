@@ -3,7 +3,7 @@ from django.conf import settings
 from cloudinary.models import CloudinaryField
 
 class Blogs(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="blogs")
+    author = models.CharField(max_length=100)
     title = models.CharField(max_length=255)
     image = models.URLField(max_length=500, blank=True, null=True)
     content = models.TextField()
