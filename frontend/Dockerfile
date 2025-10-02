@@ -1,15 +1,17 @@
-# Frontend Dockerfile
-FROM node:20
+# Frontend Dockerfile (Vite - Development)
+FROM node:20-slim
 
 WORKDIR /app
 
-# Copy package.json first for better caching
+# Copy dependency files first for caching
 COPY package.json package-lock.json ./
+
+# Install dependencies
 RUN npm install
 
-# Copy rest of frontend files
-COPY . /app
+# Copy the rest of the project
+COPY . .
 
-EXPOSE 3000
+EXPOSE 5173
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev", "--", "--host"]

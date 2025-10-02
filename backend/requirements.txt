@@ -16,3 +16,4 @@ django-cloudinary-storage
 django-environ
 dj-database-url
 Faker>=24.0.0
+python-dotenv

@@ -1,50 +1,23 @@
-version: "3.9"
-
 services:
+  # ------------------------------
+  # Django Backend
+  # ------------------------------
   backend:
-    build:
-      context: ./backend
-      dockerfile: ${DOCKERFILE:-Dockerfile}   # Dockerfile (dev) or Dockerfile.prod (prod)
-    container_name: horizonkeys-backend
+    build: ./backend   # path to your backend Dockerfile
+    container_name: horizonkeys_backend
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./backend:/app
     ports:
       - "8000:8000"
-    volumes:
-      - ./backend:/app   # live reload in dev; ignored in prod builds
-      - static_volume:/app/staticfiles
-      - media_volume:/app/media
     env_file:
-      - ./.env.${ENV:-dev}   # loads .env.dev or .env.prod
-    depends_on:
-      - frontend
-    command: ${BACKEND_CMD:-python manage.py runserver 0.0.0.0:8000}
+      - ./backend/.env
 
+  # ------------------------------
+  # Vite React Frontend
+  # ------------------------------
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: ${DOCKERFILE:-Dockerfile}
-    container_name: horizonkeys-frontend
+    build: ./frontend  # path to your frontend Dockerfile
+    container_name: horizonkeys_frontend
     ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend:/app
-    stdin_open: true
-    tty: true
-    command: ${FRONTEND_CMD:-npm start}
-
-  nginx:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-    container_name: horizonkeys-nginx
-    ports:
-      - "80:80"
-    volumes:
-      - static_volume:/vol/static
-      - media_volume:/vol/media
-      - ./frontend/dist:/usr/share/nginx/html   # serve built frontend in prod
-    depends_on:
-      - backend
-
-volumes:
-  static_volume:
-  media_volume:
+      - "5173:5173"
