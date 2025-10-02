@@ -11,15 +11,15 @@
     "start": "vite preview --port 3000 --host"
   },
   "dependencies": {
-    "vite": "^7.1.2",
     "@tailwindcss/vite": "^4.1.12",
     "axios": "^1.12.2",
-    "framer-motion": "^12.23.12",
+    "framer-motion": "^11.18.2",
     "lucide-react": "^0.539.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.8.1",
-    "tailwindcss": "^4.1.12"
+    "tailwindcss": "^4.1.12",
+    "vite": "^7.1.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
