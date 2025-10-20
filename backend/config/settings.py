@@ -1,6 +1,4 @@
-"""
-Django settings for HorizonKeys project (WSL + Supabase + Cloudinary + DRF).
-"""
+
 
 import os
 from pathlib import Path
@@ -95,11 +93,14 @@ WSGI_APPLICATION = "config.wsgi.application"
 # DATABASE
 # ------------------------------
 DATABASES = {
-    "default": dj_database_url.config(
-        default=os.getenv("DATABASE_URL"),
-        conn_max_age=600,
-        ssl_require=True
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'horizonkeys_db',     
+        'USER': 'postgres',
+        'PASSWORD': '11449646',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
 
 # Debug print to confirm database engine
