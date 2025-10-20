@@ -1,4 +1,4 @@
-# 🏡 Aestivo — Home Decor & Furnishings E-commerce Platform
+# 🏡 Horizonkeys — Home Decor & Furnishings E-commerce Platform
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/banju-che/aestivo/ci.yml?branch=main)](https://github.com/banju-che/aestivo/actions)
 ![Python](https://img.shields.io/badge/python-3.11-blue)
@@ -12,9 +12,9 @@
 
 ---
 
-Aestivo is a beautifully designed full-stack e-commerce platform focused on home décor and furnishings.
+Horizonkeys is a beautifully designed full-stack e-commerce platform focused on home décor and furnishings.
 It offers a seamless shopping experience with elegant product displays, secure checkout, and smooth performance across devices.
-Built with scalability and modern design principles in mind, Aestivo brings together functionality and aesthetics to create a platform that feels both modern and user-friendly.
+Built with scalability and modern design principles in mind, Horizonkeys brings together functionality and aesthetics to create a platform that feels both modern and user-friendly.
 
 ---
 
@@ -63,7 +63,7 @@ Built with scalability and modern design principles in mind, Aestivo brings toge
 
 ## 📂 Project Structure
 ```
-aestivo/
+Horizonkeys/
 │
 ├── backend/
 │ ├── manage.py
@@ -109,12 +109,7 @@ Copy code
 SECRET_KEY=your_django_secret_key
 DEBUG=True
 DATABASE_URL=postgres://user:password@db:5432/aestivo_db
-CLOUDINARY_URL=cloudinary://api_key:api_secret@cloud_name
 
-MPESA_CONSUMER_KEY=your_mpesa_consumer_key
-MPESA_CONSUMER_SECRET=your_mpesa_consumer_secret
-MPESA_SHORTCODE=your_shortcode
-MPESA_PASSKEY=your_passkey
 ```
 ### 🐳 Run with Docker
 ```
@@ -180,14 +175,23 @@ All product images are uploaded to Cloudinary, leveraging their CDN for optimize
 ## 📸 Screenshots
 🏠 Homepage
 
+  ![homepage](./assets/horizonkeys-homepage1.png)
 
+  ![homepage](./assets/homepage2.png)
 
-🛒 Product Page
+  ![homepage](./assets/homepage3.png)
 
+  ![homepage](./assets/homepage4.png)
 
-💳 Checkout & M-Pesa
+  ![homepage](./assets/homepage5.png)
 
+  ![homepage](./assets/homepage6.png)
 
+💳 Properties List
+
+  ![properties list](./assets/propertyListPage1.png)
+
+  ![properties list](./assets/propertyListPage2.png)
 
 ## 🧪 Running Tests
 ```
