@@ -12,7 +12,7 @@
 
 ---
 
-Horizonkeys is a beautifully designed full-stack e-commerce platform focused on home décor and furnishings.
+Horizonkeys is a beautifully designed full-stack e-commerce platform focused on home, rentals, offices for rentals, lands.Anathing to do with real estates.
 It offers a seamless shopping experience with elegant product displays, secure checkout, and smooth performance across devices.
 Built with scalability and modern design principles in mind, Horizonkeys brings together functionality and aesthetics to create a platform that feels both modern and user-friendly.
 
